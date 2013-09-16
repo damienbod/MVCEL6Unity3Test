@@ -7,11 +7,8 @@ using System.Web.Mvc;
 namespace MvcUnity3Test.Controllers
 {
     public class HomeController : Controller
-    {
-          
+    {          
         private readonly Business.IBusinessClass _businessClass;
-
-
 
         public HomeController(Business.IBusinessClass businessClass)
         {

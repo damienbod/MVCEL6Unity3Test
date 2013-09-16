@@ -17,8 +17,8 @@ namespace MvcUnity3Test
     {
         protected void Application_Start()
         {
-            RegisterMapping();
-            ControllerBuilder.Current.SetControllerFactory(typeof(UnityControllerFactory));  
+            InitUnityAndRegisterTypes();
+            ControllerBuilder.Current.SetControllerFactory(typeof(UnityControllerFactory)); 
 
             AreaRegistration.RegisterAllAreas();
 
@@ -28,17 +28,17 @@ namespace MvcUnity3Test
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
-        public void RegisterMapping()
+        public void InitUnityAndRegisterTypes()
         {
             IUnityContainer container = new UnityContainer()
               .RegisterTypes(AllClasses.FromLoadedAssemblies(),
                             WithMappings.FromMatchingInterface,
                             WithName.Default,
-                            WithLifetime.ContainerControlled);
+                            WithLifetime.PerResolve);
                 //.RegisterType<Business.IBusinessClass, Business.BusinessClass>()
                 //.RegisterType<Business.IDoSomething, Business.DoSomething>();
 
-            MvcUnityContainer.Container = container;
+            MvcUnityContainer.Container = container; 
         }
     }
 
